@@ -1,6 +1,7 @@
 using CatalogService as service from '../../srv/service';
 
 annotate service.Products with @(
+    odata.draft.enabled : true,
     UI.FieldGroup #GeneratedGroup: {
         $Type: 'UI.FieldGroupType',
         Data : [
@@ -56,18 +57,34 @@ annotate service.Products with @(
             },
         ],
     },
-    UI.Facets                    : [{
-        $Type : 'UI.ReferenceFacet',
-        ID    : 'GeneratedFacet1',
-        Label : 'General Information',
-        Target: '@UI.FieldGroup#GeneratedGroup',
-    }, 
-    // {
-    //     $Type : 'UI.ReferenceFacet',
-    //     ID    : 'GeneratedFacet2',
-    //     Label : 'Ohav's Products',
-    //     Target: '@UI.FieldGroup#GeneratedGroup2',
-    // },
+    UI.Facets                    : [
+        {
+            $Type : 'UI.CollectionFacet',
+            ID    : 'CollectionAll',
+            Label : 'Products',
+            Facets: [
+                {
+                    $Type : 'UI.ReferenceFacet',
+                    ID    : 'GeneratedFacet1',
+                    Label : 'General Information',
+                    Target: '@UI.FieldGroup#GeneratedGroup',
+                },
+                {
+                    $Type : 'UI.ReferenceFacet',
+                    ID    : 'GeneratedFacet2',
+                    Label : 'Additional Information',
+                    Target: '@UI.FieldGroup#Shank',
+                }
+            ],
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            ID    : 'GeneratedFacet3',
+            Label : 'Products Addon',
+            Target: '@UI.FieldGroup#Shank',
+        },
+
+
     ],
     UI.LineItem                  : [
         {
@@ -104,5 +121,18 @@ annotate service.Products with @(
     UI.SelectionFields           : [
         ProductName,
         SupplierID
-    ]
+    ],
+    UI.FieldGroup #Shank         : {
+        $Type: 'UI.FieldGroupType',
+        Data : [
+            {
+                $Type: 'UI.DataField',
+                Value: ProductName,
+            },
+            {
+                $Type: 'UI.DataField',
+                Value: ProductID,
+            },
+        ]
+    },
 );
