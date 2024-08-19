@@ -7,25 +7,32 @@
   "private": true,
   "dependencies": {
     "@sap/cds": "^7",
-    "express": "^4",
     "@sap/cds-hana": "^2",
-    "@sap/xssec": "^3"
+    "@sap/xssec": "^3",
+    "express": "^4"
   },
   "devDependencies": {
     "@cap-js/sqlite": "^1",
     "@sap/cds-dk": "^7",
     "@sap/eslint-plugin-cds": "^3",
-    "eslint": "^9"
+    "@sap/ux-specification": "^1.120.16",
+    "eslint": "^9",
+    "rimraf": "^5.0.5"
   },
   "scripts": {
     "start": "cds-serve",
-    "undeploy" : "cf undeploy btp-monday --delete-services --delete-service-keys --delete-service-brokers",
-    "deploy" : "cf deploy mta_archives/btp-monday_1.0.0.mtar --retries 1"
+    "undeploy": "cf undeploy btp-monday --delete-services --delete-service-keys --delete-service-brokers",
+    "deploy": "cf deploy mta_archives/btp-monday_1.0.0.mtar --retries 1",
+    "watch-products": "cds watch --open products/webapp/index.html?sap-ui-xx-viewCache=false",
+    "build": "rimraf resources mta_archives && mbt build --mtar archive"
   },
   "cds": {
     "requires": {
       "db": "hana",
       "auth": "xsuaa"
     }
-  }
+  },
+  "sapux": [
+    "app/products"
+  ]
 }

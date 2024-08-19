@@ -16,7 +16,7 @@ entity training : managed {
 }
 
 entity products : managed {
-    ProductID       : String(80);
+    key ProductID       : String(80);
     ProductName     : String(80);
     SupplierID      : String(80);
     CategoryID      : String(80);
